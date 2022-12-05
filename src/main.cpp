@@ -46,8 +46,20 @@ namespace Util{
 }
 
 namespace Original{
+    class FormatException : public std::exception{
+        public:
+            FormatException(){}
+            ~FormatException() = default;
+            virtual const char* what() const noexcept{
+                return "Thrown FormatException!";
+            }
+    };
+}
+
+namespace Original{
     int AtoiEx( const std::string& str ){
         int num = std::atoi( str.c_str() );
+        if( num == 0 ) throw Original::FormatException();
     return num;
     }
 }
@@ -58,23 +70,27 @@ int main( int argc, char** argv ){
     std::srand( (size_t)time( NULL ) );
     int n = std::rand() % 10 + 1;
 
-    int counter = 0;
-    while( true ){
-        std::string str;
-        cout << "Enter the number(1-10):" << flush;
-        std::getline( cin, str );
-        if( str.compare( "q" ) == 0 ) break;
+    int counter = 1;
+    try{
+        while( true ){
+            std::string str;
+            cout << "Enter the number(1-10):" << flush;
+            std::getline( cin, str );
+            if( str.compare( "q" ) == 0 ) break;
 
-        int x = Original::AtoiEx( str );
-        if( n == x ){
-            cout << "Hit!" << endl;
-            break;
-        }else if( n > x ){
-            cout << "N is higher than " << x << "." << endl;
-        }else{
-            cout << "N is lower than " << x << "." << endl;
+            int x = Original::AtoiEx( str );
+            if( n == x ){
+                cout << "Hit!" << endl;
+                break;
+            }else if( n > x ){
+                cout << "N is higher than " << x << "." << endl;
+            }else{
+                cout << "N is lower than " << x << "." << endl;
+            }
+            counter++;
         }
-        counter++;
+    }catch( Original::FormatException& e ){
+        cout << e.what() << endl;
     }
 
     cout << "Time: " << counter << endl;
