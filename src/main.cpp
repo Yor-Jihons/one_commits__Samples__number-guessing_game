@@ -2,8 +2,8 @@
 #include<vector>
 #include<sstream>
 #include<algorithm>
-#include<memory>
-#include<limits>
+#include<cstdlib>
+#include<ctime>
 
 using namespace std;
 
@@ -45,9 +45,38 @@ namespace Util{
     }
 }
 
+namespace Original{
+    int AtoiEx( const std::string& str ){
+        int num = std::atoi( str.c_str() );
+    return num;
+    }
+}
 
 
 int main( int argc, char** argv ){
-    
+    // Define the N.
+    std::srand( (size_t)time( NULL ) );
+    int n = std::rand() % 10 + 1;
+
+    int counter = 0;
+    while( true ){
+        std::string str;
+        cout << "Enter the number(1-10):" << flush;
+        std::getline( cin, str );
+        if( str.compare( "q" ) == 0 ) break;
+
+        int x = Original::AtoiEx( str );
+        if( n == x ){
+            cout << "Hit!" << endl;
+            break;
+        }else if( n > x ){
+            cout << "N is higher than " << x << "." << endl;
+        }else{
+            cout << "N is lower than " << x << "." << endl;
+        }
+        counter++;
+    }
+
+    cout << "Time: " << counter << endl;
 return 0;
 }
