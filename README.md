@@ -1,4 +1,4 @@
-# one_commits__Samples__rock-paper-scissors_game
+# one_commits__Samples__number-guessing_game
 
 This is a sample so that I can commit this to the GitHub.
 
