@@ -54,6 +54,16 @@ namespace Original{
                 return "Thrown FormatException!";
             }
     };
+
+    class OutOfBoundException : public std::exception{
+        public:
+            OutOfBoundException(){}
+            ~OutOfBoundException() = default;
+
+            const char* what( void ) const noexcept{
+                return "This data is out of bound.";
+            }
+    };
 }
 
 namespace Original{
@@ -61,6 +71,11 @@ namespace Original{
         int num = std::atoi( str.c_str() );
         if( num == 0 ) throw Original::FormatException();
     return num;
+    }
+
+    bool IsValidNumber4An( int n ){
+        if( n >= 1 && n <= 10 ) return true;
+    return false;
     }
 }
 
@@ -79,6 +94,8 @@ int main( int argc, char** argv ){
             if( str.compare( "q" ) == 0 ) break;
 
             int x = Original::AtoiEx( str );
+            if( !Original::IsValidNumber4An( x ) ) throw Original::OutOfBoundException();
+
             if( n == x ){
                 cout << "Hit!" << endl;
                 break;

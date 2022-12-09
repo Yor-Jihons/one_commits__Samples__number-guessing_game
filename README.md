@@ -16,6 +16,7 @@ This is a sample so that I can commit this to the GitHub.
 
 ```
 1≦N≦10
+1≦a{i}≦10
 ```
 
 ## 3. Inputs and Outputs
